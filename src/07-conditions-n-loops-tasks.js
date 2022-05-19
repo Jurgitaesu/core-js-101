@@ -305,6 +305,7 @@ function getDigitalRoot(/* num */) {
   //     .map(Number)
   //     .reduce((a, b) => a + b)
   // );
+  throw new Error('Not implemented');
 }
 
 /**
