@@ -87,8 +87,8 @@ function getDistanceBetweenPoints(x1, y1, x2, y2) {
  *   x + 8 = 0       => -8
  *   5*x = 0         => 0
  */
-function getLinearEquationRoot(/* a, b */) {
-  throw new Error('Not implemented');
+function getLinearEquationRoot(a, b) {
+  return -b / a;
 }
 
 /**
@@ -110,11 +110,12 @@ function getLinearEquationRoot(/* a, b */) {
  *   (0,1) (1,2)     => 0
  */
 function getAngleBetweenVectors(x1, y1, x2, y2) {
-  const dy = y2 - y1;
-  const dx = x2 - x1;
-  let theta = Math.atan2(dy, dx);
-  theta *= 180 / Math.PI;
-  return theta;
+  // const dy = y2 - y1;
+  // const dx = x2 - x1;
+  // let theta = Math.atan2(dy, dx);
+  // theta *= 180 / Math.PI;
+  // return theta;
+  return Math.abs(Math.atan2(y1, x1) - Math.atan2(y2, x2));
 }
 
 /**
@@ -182,8 +183,9 @@ function getParallelepipedDiagonal(/* a, b, c */) {
  *   1678, 2  => 1700
  *   1678, 3  => 2000
  */
-function roundToPowerOfTen(/* num, pow */) {
-  throw new Error('Not implemented');
+function roundToPowerOfTen(num, pow) {
+  const power = 10 ** pow;
+  return Math.round(num / power) * power;
 }
 
 /**
@@ -227,13 +229,9 @@ function isPrime(n) {
  *   toNumber(42, 0) => 42
  *   toNumber(new Number(42), 0) => 42
  */
-function toNumber(/* value, def */) {
-  // const conv = Number(value);
-  // if (typeof conv === 'number') {
-  //   return conv;
-  // }
-  // return def;
-  throw new Error('Not implemented');
+function toNumber(value, def) {
+  const number = Number(value);
+  return Number.isNaN(number) ? def : number;
 }
 
 module.exports = {

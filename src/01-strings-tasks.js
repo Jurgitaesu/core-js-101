@@ -171,8 +171,8 @@ function convertToUpperCase(str) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  return str.split(';');
 }
 
 /**
@@ -198,8 +198,15 @@ function extractEmails(/* str */) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  let result = '';
+  const topLine = `┌${('─').repeat(width - 2)}┐\n`;
+
+  result += topLine;
+  result += (`│${(' ').repeat(width - 2)}│\n`).repeat(height - 2);
+  result += topLine.replace('┌', '└').replace('┐', '┘');
+
+  return result;
 }
 
 /**
@@ -265,8 +272,8 @@ function isString(value) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  return 'A234567891JQK'.indexOf(value[0]) + (13 * '♣♦♥♠'.indexOf(value[value.length - 1]));
 }
 
 module.exports = {

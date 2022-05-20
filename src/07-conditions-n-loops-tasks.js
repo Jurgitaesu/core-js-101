@@ -126,11 +126,20 @@ function isTriangle(a, b, c) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  // if (rect1.x1 >= rect2.x2 || rect2.x1 >= rect1.x2) return false;
-  // if (rect1.y1 >= rect2.y2 || rect2.y1 >= rect1.y2) return false;
-  // return true;
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  let r1 = rect1;
+  let r2 = rect2;
+  if (r1.top > r2.top || r1.left > r2.left) {
+    const tmp = r1;
+    r1 = r2;
+    r2 = tmp;
+  }
+  const top = r1.top <= r2.top;
+  const s2 = r1.top + r1.width >= r2.top;
+  const left = r1.left <= r2.left;
+  const s3 = r1.left + r1.height >= r2.left;
+  const doOverlap = top && s2 && left && s3;
+  return doOverlap;
 }
 
 /**
@@ -160,13 +169,11 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *
  */
 function isInsideCircle(circle, point) {
-  const x = (point.x - circle.center.x) * (point.x - circle.center.x);
-  const y = (point.y - circle.center.y) * (point.y - circle.center.y);
-  const rad = circle.radius * circle.radius;
-  if (x + y < rad || x + y === rad) {
-    return true;
-  }
-  return false;
+  const radius = Math.hypot(
+    circle.center.x - point.x,
+    circle.center.y - point.y,
+  );
+  return radius < circle.radius;
 }
 
 /**
@@ -209,8 +216,30 @@ function findFirstSingleChar(str) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  let numA = a;
+  let numB = b;
+  if (numB < numA) {
+    let temp = 0;
+    temp = numA;
+    numA = numB;
+    numB = temp;
+  }
+  let before;
+  let after;
+  if (isStartIncluded) {
+    before = '[';
+  } else {
+    before = '(';
+  }
+
+  if (isEndIncluded) {
+    after = ']';
+  } else {
+    after = ')';
+  }
+
+  return `${before}${numA}, ${numB}${after}`;
 }
 
 /**
@@ -266,6 +295,21 @@ function reverseInteger(num) {
  *   4916123456789012 => false
  */
 function isCreditCardNumber(/* ccn */) {
+  // let digits = String(ccn).split(''),
+  //   sum = 0,
+  //   even = false;
+
+  // digits.map((item) => {
+  //   let dig = parseInt(item, 10),
+  //     doubled = dig * 2;
+
+  //   if (doubled > 9) doubled -= 9;
+
+  //   sum += even ? doubled : dig;
+  //   even = !even;
+  // });
+
+  // return sum % 10 == 0;
   // const arr = (ccn + '')
   //   .split('')
   //   .reverse()
@@ -295,16 +339,17 @@ function isCreditCardNumber(/* ccn */) {
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
 function getDigitalRoot(/* num */) {
-  // if (num < 10) {
-  //   return num;
+  // let sum = num;
+  // let arr = [];
+  // const reducer = (a, b) => parseInt(a, 10) + parseInt(b, 10);
+
+  // if (sum > 9) {
+  //   arr = sum.toString().split('');
+  //   sum = arr.reduce(reducer);
+  //   return sum;
   // }
-  // return getDigitalRoot(
-  //   num
-  //     .toString()
-  //     .split('')
-  //     .map(Number)
-  //     .reduce((a, b) => a + b)
-  // );
+
+  // return sum;
   throw new Error('Not implemented');
 }
 
